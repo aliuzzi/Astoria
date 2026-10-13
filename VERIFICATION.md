@@ -16,3 +16,12 @@ Verified in the in-app browser against local previews:
 The prior single-campaign prototype also verified headline dependency invalidation, microsite CTA behavior, and a nine-file ZIP with valid CRCs. Client exports now add client/campaign IDs and use client-specific filenames and artwork.
 
 Limitations: state is local to a browser origin, production is simulated, filename intake does not upload bytes, contacts do not grant access, and domains are demonstrative. This verification does not establish production authorization or multi-tenant security.
+
+## Website-source import
+
+- Six automated tests cover copy/image extraction, color normalization, bounded page import, unsafe URL rejection, private redirect rejection, MIME checks, and response limits.
+- A live public PhotoCraft page import returned its source headline and description, color candidates, original logo, and product image candidates.
+- Applying reviewed sources retained an original SVG logo and JPEG as embedded image data. Both loaded in the client strategy view.
+- Intake carried the imported sources into a newly created client and its first campaign.
+- After review, the assembled microsite displayed the imported logo, JPEG, colors, and source headline.
+- Downloaded standalone HTML contained valid original SVG/JPEG bytes and source copy with no dependency on the image proxy.

@@ -1,0 +1,3 @@
+import {createServer} from 'node:http';import {readFile} from 'node:fs/promises';
+const worker=await import('data:text/javascript;base64,'+Buffer.from(await readFile('dist/server/index.js','utf8')).toString('base64'));
+createServer(async(req,res)=>{try{const bytes=[];for await(const chunk of req)bytes.push(chunk);const request=new Request('http://localhost:4175'+req.url,{method:req.method,headers:req.headers,...(!['GET','HEAD'].includes(req.method)?{body:Buffer.concat(bytes)}:{})});const response=await worker.default.fetch(request);res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()))}catch(e){res.writeHead(500);res.end(e.message)}}).listen(4175,()=>console.log('Astoria preview: http://localhost:4175'));

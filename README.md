@@ -10,7 +10,17 @@ Use Clients to open a profile; client and campaign selectors switch context. Str
 
 This models client scoping locally, not security isolation. Contacts do not receive access or invitations. Browser storage is not shared between devices. Actual accounts, client portals, file storage, website hosting per client, and MCP execution remain implementation milestones. Requested scope is recorded, but demo production counts remain six scenes and six graphics per campaign.
 
-Run `python3 -m http.server 4173 --directory dist` from this directory, then open http://localhost:4173.
+Source UI files now live in `web/`; the website importer lives in `worker/`. Run `node scripts/build.mjs`, then `node scripts/preview.mjs` and open http://localhost:4175. The generated Worker embeds the UI and exposes the brand-import and image-fetch endpoints. A plain static server cannot run imports.
+
+## Website brand import
+
+In intake step one, enter a public website URL and select **Import brand from website**. Review source copy, suggested tone, palette candidates, logo, and photography. Choose up to three images and source excerpts, edit the proposed positioning/tone, and apply. Existing clients can import or refresh from Brand Strategy.
+
+The importer reads the requested HTML plus up to two same-origin about/product pages and two stylesheets. It records original URLs, exact selected text, and imported image bytes. PNG/JPEG/WebP images and SVG logos are supported. Source images are reused in campaign compositions and embedded in exported microsites; exports retain provenance in the manifest. No image-generation service is used for these assets.
+
+Tone is a rule-based suggestion, not a model-generated analysis. Colors are frequency-based candidates and need review. The importer does not execute page JavaScript or bypass blocked pages. Private-network URLs, credential-bearing URLs, unsupported MIME types, oversized responses, and unsafe redirects are rejected. Images are capped at 2 MB total per applied import because client data remains browser-local. Website import is a real backend action; creative production remains simulated.
+
+Verify with `node --test tests/brand-import.test.mjs`.
 
 Walkthrough: open Review, approve remaining scenes and graphics, build and approve the Campaign Website, and download the ZIP in Delivery. Request a copy revision in Review to see dependent approvals become stale. Rebuild, review affected outputs, and rebuild the site. Reset Demo restores the example campaign. Browser storage retains work between reloads.
 
