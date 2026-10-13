@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .prototype-pill{font-size:8px!important;letter-spacing:1px;color:#7b668f!important;background:#ece6f4;padding:4px 6px;border-radius:3px;margin:0 8px 0 0!important}@media(max-width:760px){.page-heading{flex-wrap:wrap}.page-heading>.button{margin-top:0}.hero-art{height:240px}.hero-art .product-svg{transform:none}}
+
+.brand-tagline{font-size:10px;color:#a7b291;letter-spacing:.2px;margin:12px 0 0 3px}.brand-mark{font-family:Georgia,serif;font-weight:400;font-size:38px}.brand-mark span{font-family:Arial,sans-serif;font-size:17px;top:-2px;right:-11px}.brand{gap:14px}.workspace-label{margin-top:32px}@media(max-width:760px){.brand-tagline{margin-top:7px;font-size:9px}}

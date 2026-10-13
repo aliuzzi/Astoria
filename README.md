@@ -1,6 +1,6 @@
-# Northline Campaign Studio
+# Astoria — Brand Stories
 
-Interactive browser-local prototype for the Solune fictional campaign. No live PhotoCraft/ArtCraft MCP integration or production accounts. Assets are original SVG illustrations; approvals, comments, headline revisions, microsite assembly, and ZIP exports work locally.
+Astoria brings brand stories to life. Interactive browser-local prototype for the Solune fictional campaign. No live PhotoCraft/ArtCraft MCP integration or production accounts. Assets are original SVG illustrations; approvals, comments, headline revisions, microsite assembly, and ZIP exports work locally.
 
 Run `python3 -m http.server 4173 --directory dist` from this directory, then open http://localhost:4173.
 
