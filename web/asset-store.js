@@ -1,0 +1,11 @@
+// Keep image/font bytes out of localStorage; IndexedDB holds the larger asset library.
+const assetWrites=new Map();
+const assetDB=new Promise((resolve,reject)=>{const r=indexedDB.open('astoria-brand-assets',1);r.onupgradeneeded=()=>r.result.createObjectStore('assets',{keyPath:'id'});r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+function allBrandAssets(value,found=[],seen=new WeakSet()){if(!value||typeof value!=='object'||seen.has(value))return found;seen.add(value);if(value.dataURL?.startsWith('data:')){if(!value.id)value.id=uuid('asset');found.push(value)}for(const v of Object.values(value))if(v&&typeof v==='object')allBrandAssets(v,found,seen);return found}
+async function writeAsset(asset){const db=await assetDB;return new Promise((resolve,reject)=>{const tx=db.transaction('assets','readwrite');tx.objectStore('assets').put({id:asset.id,dataURL:asset.dataURL});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+async function readAsset(id){const db=await assetDB;return new Promise((resolve,reject)=>{const r=db.transaction('assets').objectStore('assets').get(id);r.onsuccess=()=>resolve(r.result?.dataURL);r.onerror=()=>reject(r.error)})}
+async function ensureBrandAssets(){for(const a of allBrandAssets(agency)){if(!assetWrites.has(a.id)){const write=writeAsset(a);assetWrites.set(a.id,write);write.catch(()=>assetWrites.delete(a.id))}}await Promise.all(assetWrites.values())}
+persist=function(){allBrandAssets(agency);try{localStorage.setItem(AGENCY_KEY,JSON.stringify(agency,(key,value)=>key==='dataURL'?undefined:value));document.getElementById('save-label').textContent='Saved locally';ensureBrandAssets().catch(()=>{document.getElementById('save-label').textContent='Asset storage unavailable';toast('Browser asset storage failed. Keep this session open and try freeing browser storage.');})}catch{document.getElementById('save-label').textContent='Session only'}};
+async function hydrateAssets(value){if(!value||typeof value!=='object')return;if(value.id?.startsWith('asset-')&&!value.dataURL){const data=await readAsset(value.id);if(data)value.dataURL=data}for(const child of Object.values(value))if(child&&typeof child==='object')await hydrateAssets(child)}
+hydrateAssets(agency).then(()=>{render();ensureBrandAssets().catch(()=>{})}).catch(()=>toast('Saved assets could not be loaded from this browser.'));
+persist();

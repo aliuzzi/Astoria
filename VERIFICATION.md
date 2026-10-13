@@ -25,3 +25,13 @@ Limitations: state is local to a browser origin, production is simulated, filena
 - Intake carried the imported sources into a newly created client and its first campaign.
 - After review, the assembled microsite displayed the imported logo, JPEG, colors, and source headline.
 - Downloaded standalone HTML contained valid original SVG/JPEG bytes and source copy with no dependency on the image proxy.
+
+## Expanded image library and typography
+
+- Ten automated tests pass, including separate heading/body families, CSS variable resolution, relative font-file URLs, inert family parsing, and font-signature validation.
+- Selected four website images and uploaded a JPG plus PNG. Applying all six succeeded.
+- All six original images loaded as embedded data after reloading, with their bytes recovered from IndexedDB.
+- Upload-only intake accepted a PNG and applied it without a website URL.
+- A live source declared Archivo for headings and Inter for body copy. Eight source font files were retained.
+- The website preview rendered the matching heading/body stacks, original website imagery, and uploaded originals.
+- Standalone HTML contained valid embedded font bytes, both uploaded filenames/images, matching family rules, and no font-proxy dependency.
