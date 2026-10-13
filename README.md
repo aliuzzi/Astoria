@@ -1,6 +1,6 @@
 # Astoria — Brand Stories
 
-Astoria brings brand stories to life. Interactive browser-local prototype for the Solune fictional campaign. No live PhotoCraft/ArtCraft MCP integration or production accounts. Assets are original SVG illustrations; approvals, comments, headline revisions, microsite assembly, and ZIP exports work locally.
+Astoria brings brand stories to life. Interactive browser-local prototype for fictional campaigns. Assets are original SVG illustrations; approvals, comments, headline revisions, microsite assembly, and ZIP exports work locally.
 
 ## Agency workspace
 
